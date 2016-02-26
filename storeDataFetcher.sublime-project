@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "follow_symlinks": false,
+      "path": ".",
+      "folder_exclude_patterns": [
+        "release",
+        "google/test/outputDirectory",
+        "apple/test/outputDirectory"
+      ],
+      "file_exclude_patterns": [
+        "npm-debug.log",
+      ],
+    },
+  ],
+  "settings": {
+    "translate_tabs_to_spaces": true,
+    "tab_size": 4,
+  },
+}

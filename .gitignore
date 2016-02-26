@@ -1,0 +1,21 @@
+# private
+/apple/test/private.json
+/google/test/private.json
+/google/test/key.json
+
+# output data
+/apple/test/outputDirectory/
+/google/test/outputDirectory/
+
+# built content
+/release/
+
+# npm
+/node_modules/
+/npm-debug.log
+
+# Sublime Text
+/*.sublime-workspace
+
+# OS X
+.DS_Store
