@@ -1,30 +1,32 @@
 #!/bin/bash
 
-# google/test contains private content
-# apple/test contains private content
-
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/..
 
-(cd "$DIR" && eslint .) || exit 1
-(cd "$DIR" && npm test) || exit 1
-(cd "$DIR" && npm run test_google) || exit 1
+echo -n "running npm install --ignore-scripts… "
+(cd "$DIR" && npm install --ignore-scripts) || exit 1
+echo "done"
 
-# run apple tests manually
-# (cd "$DIR" && npm run test_apple) || exit 1
+echo -n "running npm install --only=dev --ignore-scripts… "
+(cd "$DIR" && npm install --only=dev --ignore-scripts) || exit 1
+echo "done"
 
-rm -r "$DIR/release" 2>/dev/null
-mkdir "$DIR/release" || exit 1
-cp "$DIR/package.json" "$DIR/release" || exit 1
-cp "$DIR/storeDataFetcher.js" "$DIR/release" || exit 1
-mkdir "$DIR/release/google" || exit 1
-mkdir "$DIR/release/google/test" || exit 1
-cp "$DIR/google/test/gsync.js" "$DIR/release/google/test" || exit 1
-cp "$DIR/google/gsync.js" "$DIR/release/google" || exit 1
-cp "$DIR/google/README.md" "$DIR/release/google" || exit 1
-mkdir "$DIR/release/apple" || exit 1
-mkdir "$DIR/release/apple/test" || exit 1
-cp "$DIR/apple/test/getAppStoreReport.js" "$DIR/release/apple/test" || exit 1
-cp "$DIR/apple/getAppStoreReport.js" "$DIR/release/apple" || exit 1
-cp "$DIR/apple/promiseUtils.js" "$DIR/release/apple" || exit 1
-cp "$DIR/apple/README.md" "$DIR/release/apple" || exit 1
-npm publish "$DIR/release" || exit 1
+echo -n "running build script… "
+"$DIR/bin/build" || exit 1
+echo "done"
+
+echo -n "running release script… "
+"$DIR/bin/release" || exit 1
+echo "done"
+
+echo -n "running test script"
+# "$DIR/bin/test" || exit 1
+echo "done"
+
+echo -n "running lint script… "
+"$DIR/bin/lint" || exit 1
+echo "done"
+
+echo "--------------------------------------------------------------------------------"
+echo "publishing $DIR/release"
+echo "--------------------------------------------------------------------------------"
+npm publish --ignore-scripts "$DIR/release" || exit 1

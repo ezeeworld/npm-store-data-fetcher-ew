@@ -67,9 +67,9 @@ function _isArrayLike(arr) {
 }
 
 function _keyIterator(coll) {
-    var i = -1;
-    var len;
-    var keys;
+    let i = -1;
+    let len;
+    let keys;
     if (_isArrayLike(coll)) {
         len = coll.length;
         return function next() {

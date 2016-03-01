@@ -29,25 +29,36 @@ Requires key.json given by Google i.e.
 
 */
 
-var assert = require('assert');
-var path = require('path');
-var fs = require('fs');
-var _ = require('lodash');
-var gsync = require('../gsync');
-var privateOptions = JSON.parse(fs.readFileSync(path.join(__dirname, '/private.json')));
+const assert = require('assert');
+const path = require('path');
+const fs = require('fs');
+const _ = require('lodash');
+const gsyncModule = require('../src/built/gsync');
+const gsync = gsyncModule();
+const privateOptions = JSON.parse(fs.readFileSync(path.join(__dirname, '/private/google-credentials.json')));
 
 describe('module gsync', function() {
+    describe('managing instances', function() {
+        it('module should be a default instance', function() {
+            assert.strictEqual(typeof gsyncModule.execute, 'function');
+        });
+        it('module can create a new instance', function() {
+            assert.strictEqual(typeof gsyncModule, 'function');
+            assert.strictEqual(typeof gsync, 'function');
+            assert.strictEqual(typeof gsync.execute, 'function');
+        });
+    });
     describe('execute', function() {
         it('should not throw an error AND sync as expected (manual verification)', function(done) {
             console.log('setting 3min timeout for this test');
             this.timeout(180 * 1000);
             return gsync.execute(_.assign({}, privateOptions, {
-                keyFilename: __dirname + '/key.json',
+                keyFilename: __dirname + '/private/google-key.json',
                 prefix: 'stats/installs/installs_',
                 nameSelector: function(name) {
                     return name.indexOf('2016') > -1;
                 },
-                outputDirectory: __dirname + '/outputDirectory/' + privateOptions.bucket,
+                outputDirectory: __dirname + '/outputDirectory/google/' + privateOptions.bucket,
             }))
             .then(function() {
                 done();

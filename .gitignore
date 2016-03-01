@@ -1,14 +1,12 @@
 # private
-/apple/test/private.json
-/google/test/private.json
-/google/test/key.json
+/test/private
 
 # output data
-/apple/test/outputDirectory/
-/google/test/outputDirectory/
+/test/outputDirectory/
 
 # built content
 /release/
+/src/built/
 
 # npm
 /node_modules/

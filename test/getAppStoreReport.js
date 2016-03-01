@@ -11,18 +11,18 @@ Require private.json i.e.
 
 */
 
-var assert = require('assert');
-var path = require('path');
-var fs = require('fs');
-var _ = require('lodash');
-var getAppStoreReportModule = require('../getAppStoreReport');
-var privateOptions = JSON.parse(fs.readFileSync(path.join(__dirname, '/private.json')));
-var getAppStoreReport = getAppStoreReportModule(_.assign({}, privateOptions, {
+const assert = require('assert');
+const path = require('path');
+const fs = require('fs');
+const _ = require('lodash');
+const getAppStoreReportModule = require('../src/built/getAppStoreReport');
+const privateOptions = JSON.parse(fs.readFileSync(path.join(__dirname, '/private/apple-credentials.json')));
+const getAppStoreReport = getAppStoreReportModule(_.assign({}, privateOptions, {
     report_type: 'Sales',
     report_subtype: 'Summary',
     date_type: 'Daily',
-    report_date: '20150223',
-    outputDirectory: path.join(__dirname, '/outputDirectory'),
+    report_date: new Date().getFullYear() + '0223',
+    outputDirectory: path.join(__dirname, '/outputDirectory/apple'),
     returnJson: true,
     deleteDownloadedFiles: true,
 }));
