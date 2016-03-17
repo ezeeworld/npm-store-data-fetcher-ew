@@ -103,3 +103,29 @@ gsync.execute({
 .then(() => console.log('Done.'))
 .catch(console.error);
 ```
+
+# Google Cloud Storage Authorization Setup
+
+## Creating a project
+- log into the *Google Developers Console* <https://console.developers.google.com/home/dashboard>
+- in the menu bar, click on the "Select a project" or <name of already selected project> Menu
+- click on "Create a project…""
+- select a name and id and click on "Create"
+- click on "Use Google APIs", select "Credentials" in the left menu
+- click on "Create credentials", "Service account key"
+- in the "Service account" dropdown menu, select "New service account", and give it a name and service account ID
+- keep the default "Key type" as "JSON" and click on "Create"
+- the downloaded JSON file corresponds to the <keyFilename> option to synchronize Google store data
+- the "Service account ID" is a e-mail that can be used to authorize the project on the app publisher account (see below)
+
+## Authorizing a project on the app publisher account
+Log into the *Google Play Developer Console* <https://play.google.com/apps/publish/>
+
+You should see a list of your apps
+
+To authorize access to, in this example, the view of financial reports:
+- go in "Settings", "User accounts & rights"
+- click on "Invite a new user"
+- fill in the e-mail associated with the project <projectId> that will be used to synchronize Google store data
+- set "Role" to "Finance"
+- click on "Send Invitation"
